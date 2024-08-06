@@ -28,14 +28,16 @@ def show_post(index):
 
 @app.route("/contact", methods=['POST', 'GET'])
 def contact():
+    contact_me = True
     if request.method == "POST":
+        contact_me = False
         name = request.form['name']
         email = request.form['email']
         phone = request.form['phone']
         message = request.form['message']
         print(f"{name}\n{email}\n{phone}\n{message}")
-        return "<h1>Successfully sent your message</h1>"
-    return render_template('contact.html')
+
+    return render_template('contact.html', contact_me=contact_me)
 
 
 if __name__ == "__main__":
