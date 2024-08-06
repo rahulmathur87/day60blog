@@ -17,11 +17,6 @@ def about():
     return render_template("about.html")
 
 
-@app.route("/contact")
-def contact():
-    return render_template("contact.html")
-
-
 @app.route("/post/<int:index>")
 def show_post(index):
     requested_post = None
@@ -31,15 +26,16 @@ def show_post(index):
     return render_template("post.html", post=requested_post)
 
 
-@app.route("/form-entry", methods=['POST'])
-def form():
-    name = request.form['name']
-    email = request.form['email']
-    phone = request.form['phone']
-    message = request.form['message']
-    print(f"{name}\n{email}\n{phone}\n{message}")
-
-    return "<h1>Successfully sent your message</h1>"
+@app.route("/contact", methods=['POST', 'GET'])
+def contact():
+    if request.method == "POST":
+        name = request.form['name']
+        email = request.form['email']
+        phone = request.form['phone']
+        message = request.form['message']
+        print(f"{name}\n{email}\n{phone}\n{message}")
+        return "<h1>Successfully sent your message</h1>"
+    return render_template('contact.html')
 
 
 if __name__ == "__main__":
